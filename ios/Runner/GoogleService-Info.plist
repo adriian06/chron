@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBUYrCs90J3mkYlQvWsuVVHv-XAHZ9hXVw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>665156868898</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tdomain.chron</string>
+	<key>PROJECT_ID</key>
+	<string>chron-cf3a0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chron-cf3a0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:665156868898:ios:bf4cdd94c1a93de028237b</string>
+</dict>
+</plist>

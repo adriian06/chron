@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "665156868898",
+    "project_id": "chron-cf3a0",
+    "storage_bucket": "chron-cf3a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665156868898:android:fcc5cadd24f5d2c728237b",
+        "android_client_info": {
+          "package_name": "com.tdomain.chron"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbOg6ZhK4418YxffMKvbDbPOiBYFAPZRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
