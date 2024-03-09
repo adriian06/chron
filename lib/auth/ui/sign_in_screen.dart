@@ -19,62 +19,89 @@ class _SignInScreenState extends State<SignInScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var rememberMe = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
+    return Scaffold(body: body(context));
+  }
+
+  Widget btnSign(BuildContext context, Widget child, Function() pressed) {
+    return ElevatedButton(onPressed: pressed, child: child);
+  }
+
+  Widget customText(String title,
+      {double fontSize = 12, FontWeight fontWeight = FontWeight.normal}) {
+    return Text(
+      title,
+      style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
+    );
+  }
+
+  Widget customTextField(TextEditingController controller, String title) {
+    return TextField(
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: title,
+      ),
+      controller: controller,
+    );
+  }
+
+  Widget optionField(bool desiredValue) {
+    return Row(
       children: [
-        const SizedBox(
-          height: 100,
-        ),
-        TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Email',
-          ),
-          controller: emailController,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Password',
-          ),
-          controller: passwordController,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            const Text('remember me'),
-            const SizedBox(
-              width: 10,
-            ),
-            Checkbox(
-              value: rememberMe,
-              onChanged: (value) async {
-                setState(() {
-                  rememberMe = value!;
-                });
-              },
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        GestureDetector(
-          child: const Text('create account'),
-          onTap: () {
-            context.router.push(const SignUpRoute());
+        Checkbox(
+          value: desiredValue,
+          onChanged: (value) async {
+            setState(() {
+              desiredValue = value!;
+            });
           },
         ),
-        const SizedBox(
-          height: 20,
+        spacer(x: 5),
+        customText('Remember me', fontSize: 16)
+      ],
+    );
+  }
+
+  Widget spacer({double x = 0, double y = 0}) {
+    return SizedBox(
+      width: x,
+      height: y,
+    );
+  }
+
+  Widget body(BuildContext context) {
+    return Column(
+      children: [
+        spacer(y: 20),
+        Container(
+          height: 60.0,
+          width: 60.0,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/logo-no-background.png'),
+              fit: BoxFit.fill,
+            ),
+            shape: BoxShape.circle,
+          ),
         ),
+        spacer(y: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: customTextField(emailController, 'Email'),
+        ),
+        spacer(y: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: customTextField(passwordController, 'Password'),
+        ),
+        spacer(y: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: optionField(rememberMe),
+        ),
+        spacer(y: 20),
         ElevatedButton(
           onPressed: () async {
             final redirectBloc = context.read<AuthRedirectBloc>();
@@ -84,9 +111,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 .signIn(emailController.text, passwordController.text);
             redirectBloc.add(RedirectUser());
           },
-          child: const Text('Sign In'),
+          child: customText('Sign In', fontSize: 18),
+        ),
+        spacer(y: 20),
+        GestureDetector(
+          child: customText('create account', fontSize: 14),
+          onTap: () {
+            context.router.push(const SignUpRoute());
+          },
         ),
       ],
-    ));
+    );
   }
 }
