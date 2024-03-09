@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chron/auth/bloc/auth_redirect_bloc.dart';
+import 'package:chron/global_widgets/global_widgets.dart';
 import 'package:chron/main.dart';
 import 'package:chron/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
@@ -18,61 +19,79 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var rememberMe = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        const SizedBox(
-          height: 100,
-        ),
-        TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Email',
-          ),
-          controller: emailController,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Password',
-          ),
-          controller: passwordController,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            const Text('remember me'),
-            const SizedBox(
-              width: 10,
+      appBar: AppBar(),
+      body: Center(
+        child: FractionallySizedBox(
+          widthFactor: 0.8,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/chron_logo.png',
+                  height: 200,
+                  width: 200,
+                ),
+                const SpacerSmall(),
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                    ),
+                    filled: true,
+                    labelText: 'Email',
+                  ),
+                  controller: emailController,
+                ),
+                const SpacerTiny(),
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                    ),
+                    filled: true,
+                    labelText: 'Password',
+                  ),
+                  controller: passwordController,
+                ),
+                const SpacerTiny(),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: rememberMe,
+                      onChanged: (value) async {
+                        setState(() {
+                          rememberMe = value!;
+                        });
+                      },
+                    ),
+                    const Text('remember me'),
+                  ],
+                ),
+                const SpacerTiny(),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: FilledButton.tonal(
+                    onPressed: () async {
+                      final auth = sl<AuthRepository>();
+                      final redirectBloc = context.read<AuthRedirectBloc>();
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setBool('remember_me', rememberMe);
+                      await auth.signUp(
+                          emailController.text, passwordController.text);
+                      redirectBloc.add(RedirectUser());
+                    },
+                    child: const Text('Sign Up'),
+                  ),
+                ),
+              ],
             ),
-            Checkbox(
-                value: rememberMe,
-                onChanged: (value) async {
-                  setState(() {
-                    rememberMe = value!;
-                  });
-                }),
-          ],
+          ),
         ),
-        ElevatedButton(
-          onPressed: () async {
-            final auth = sl<AuthRepository>();
-            final redirectBloc = context.read<AuthRedirectBloc>();
-            final prefs = await SharedPreferences.getInstance();
-            prefs.setBool('remember_me', rememberMe);
-            await auth.signUp(emailController.text, passwordController.text);
-            redirectBloc.add(RedirectUser());
-          },
-          child: const Text('Sign In'),
-        ),
-      ],
-    ));
+      ),
+    );
   }
 }

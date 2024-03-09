@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chron/app_theme/custom_app_theme.dart';
 import 'package:chron/auth/bloc/auth_redirect_bloc.dart';
 import 'package:chron/firebase/firebase_options.dart';
 import 'package:chron/repositories/auth_repository.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<AuthRedirectBloc>().state;
     return MaterialApp.router(
-      theme: ThemeData(useMaterial3: false),
+      theme: CustomTheme.lightThemeData(context),
+      darkTheme: CustomTheme.darkThemeData(),
       routerDelegate: AutoRouterDelegate.declarative(
         _appRouter,
         routes: (_) => [

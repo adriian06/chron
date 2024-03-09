@@ -3,6 +3,7 @@ import 'package:chron/app_init/splash_bloc.dart';
 import 'package:chron/auth/bloc/auth_redirect_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -16,9 +17,10 @@ class SplashScreen extends StatelessWidget implements AutoRouteWrapper {
           context.read<AuthRedirectBloc>().add(RedirectUser());
         }
       },
-      child: const Scaffold(
+      child: Scaffold(
         body: Center(
-          child: Text('Splash Screen'),
+          child: LoadingAnimationWidget.dotsTriangle(
+              color: Theme.of(context).primaryColor, size: 50),
         ),
       ),
     );
