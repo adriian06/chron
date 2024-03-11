@@ -30,7 +30,16 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.0
 
+
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
+
+
+flutter_launcher_icons:
+  image_path_android: "assets/images/chron_logo.png"
+  image_path_ios: "assets/images/chron_logo.png"
+  remove_alpha_ios: true
+  android: true
+  ios: true 

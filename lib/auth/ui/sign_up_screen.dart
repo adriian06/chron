@@ -68,7 +68,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                     ),
-                    const Text('remember me'),
+                    Text(
+                      'Remember me',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ],
                 ),
                 const SpacerTiny(),
