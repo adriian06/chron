@@ -48,6 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SpacerTiny(),
                 TextField(
+                  obscureText: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
