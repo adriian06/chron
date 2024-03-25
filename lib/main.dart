@@ -35,9 +35,11 @@ class MyApp extends StatelessWidget {
       routerDelegate: AutoRouterDelegate.declarative(
         _appRouter,
         routes: (_) => [
-          if (state is Initial || state is Loading) const SplashRoute(),
+          if (state is Initial) const SplashRoute(),
+          if (state is Loading) const LoadingRoute(),
           if (state is Unauthenticated) const SignInRoute(),
-          if (state is Authenticated) const HomeRoute(),
+          if (state is Authenticated)
+            AppWrapperRoute(currentUserData: state.userData),
           if (state is Error) const SignInRoute(),
         ],
       ),

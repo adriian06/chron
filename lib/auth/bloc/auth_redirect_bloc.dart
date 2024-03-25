@@ -1,5 +1,6 @@
 import 'package:chron/main.dart';
 import 'package:chron/models/app_user.dart';
+import 'package:chron/models/user.dart';
 import 'package:chron/repositories/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,13 @@ class AuthRedirectBloc extends Bloc<AuthRedirectEvent, AuthRedirectState> {
       if (currentUser == null) {
         emit(Unauthenticated());
       } else {
-        emit(Authenticated(user: currentUser));
+        final currentUserData =
+            await _authRepository.getUserData(currentUser.uid);
+        if (currentUserData == null) {
+          emit(Unauthenticated());
+          return;
+        }
+        emit(Authenticated(user: currentUser, userData: currentUserData));
       }
     });
   }
@@ -46,8 +53,9 @@ class Unauthenticated extends AuthRedirectState {
 
 class Authenticated extends AuthRedirectState {
   final AppUser user;
+  final UserData userData;
 
-  Authenticated({required this.user});
+  Authenticated({required this.user, required this.userData});
 
   @override
   List<Object?> get props => [user];

@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class AuthWrapperScreen extends StatelessWidget {
-  const AuthWrapperScreen({
-    super.key,
-  });
+class CalendarPage extends StatelessWidget {
+  const CalendarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const AutoRouter();
+    return const Center(
+      child: Text('Calendar'),
+    );
   }
 }
